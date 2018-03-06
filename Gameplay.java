@@ -61,85 +61,20 @@ public class Gameplay {
 		return depth;
 	
     }
-/**
-	public int getdepth(int possibleMoves)
-	{
-		int depth = 3;
-	int boardSize = this.board.length;
-	if(this.remaining_time<1)
-		return 1;
-	if(this.remaining_time<2)
-		return 2;
-	
-    if (boardSize >= 22) {
-        if (possibleMoves < 50) {
-            return 4;
-        } else if (possibleMoves < 100) {
-            return 3;
-        }
 
-    } else if (boardSize >= 20) {
-        if (possibleMoves < 60) {
-            return 4;
-        } else if (possibleMoves < 120) {
-            return 3;
-        }
-    } else if (boardSize >= 17) {
-        if (possibleMoves < 40) {
-            return 5;
-        } else if (possibleMoves < 80) {
-            return 5;
-        } else if (possibleMoves < 130) {
-            return 3;
-        }
-    } else if (boardSize >= 15) {
-        if (possibleMoves < 60) {
-            return 5;
-        } else if (possibleMoves < 100) {
-            return 4;
-        } else if (possibleMoves < 150) {
-            return 3;
-        }
-    } else if (boardSize >= 13) {
-        if (possibleMoves < 80) {
-            return 5;
-        } else if (possibleMoves < 130) {
-            return 4;
-        } else if (possibleMoves < 200) {
-            return 3;
-        }
-    } else if (boardSize >= 9) {
-        if (possibleMoves < 80) {
-            return 5;
-        } else if (possibleMoves < 160) {
-            return 4;
-        }
-    } else if (boardSize > 0) {
-        return 5;
-    }
-		return depth;
-	}
-	*/
 	public LinkedList<fruits> traversal(fruits position, int board[][], boolean explored[][]) {
 		int n = board.length;
 		LinkedList<fruits> curr = new LinkedList();
 		LinkedList<fruits> all = new LinkedList();
-
-		// System.out.println("At course\n" + currpos.i + "\t" + currpos.j);
-
 		initialexplore(board, explored);
-		// for(int k=0;k<n;k++)
-		// System.out.println(Arrays.toString(explored[k]));
-
 		int i = position.i, j = position.j;
 		int currfruit = board[i][j]; // get fruit type at position
-//		node9.printboolean(explored);
 		curr.add(position);
 		all.add(position);
 		explored[i][j] = true;
 		
 		int c = 0;
-		// System.out.println(currfruit + "\n");
+
 		while (!curr.isEmpty()) {
 
 			fruits popf = curr.poll();
@@ -153,18 +88,12 @@ public class Gameplay {
 				all.add(new fruits(i - 1, j));
 				explored[i - 1][j] = true;
 			}
-
-			// System.out.println("above belowi ="+i+"j="+j);
 			if (i != (n - 1) && board[i + 1][j] == currfruit && !explored[i + 1][j]) { // below
-				// System.out.println("in above belowi ="+i+"j="+j);
 				fruits temp = new fruits(i + 1, j);
-				/// System.out.println("in here below i=" + temp.i + ", j=" + temp.j);
 				curr.add(temp);
 				all.add(temp);
-				// System.out.println("Peek element\n" + curr.peek().i + "\t" + curr.peek().j);
 				explored[i + 1][j] = true;
 			}
-			// System.out.println("After check below i= " + popf.i + " j=" + popf.j);
 
 			if (j != 0 && board[i][j - 1] == currfruit && !explored[i][j - 1]) { // to the left
 				
@@ -177,13 +106,10 @@ public class Gameplay {
 				
 				curr.add( new fruits(i, j + 1));
 				all.add( new fruits(i, j + 1));
-				// System.out.println("to the right" + curr.peek().i + "\t" + curr.peek().j);
 				explored[i][j + 1] = true;
 			}
 
 		}
-		// printqueue(all);
-		// System.out.println("\nSize of queue = " + all.size());
 		return all;
 
 	}
@@ -226,9 +152,6 @@ public class Gameplay {
 		int i, j, n = board.length, count = 0;
 		boolean explored[][] = new boolean[n][n];
 		initialexplore(board, explored); // make true for all
-//		System.out.println("Hello");
-//		printboolean(explored);
-//		System.out.println("End");
 		LinkedList<fruits> currentmove;
 		for (i = 0; i < n; i++) {
 			for (j = 0; j < n; j++) {
@@ -237,8 +160,6 @@ public class Gameplay {
 				currentmove = traversal(new fruits(i, j), board, explored);
 				Move m2 = new Move();
 				m2.mymove.addAll(m1.mymove);
-				// System.out.println("\nCurrentmove is ");
-				// printqueue(currentmove);
 				m2.mymove.add(currentmove.get(0));
 				if (maxplayer)
 					m2.score = m1.score + (int) Math.pow(currentmove.size(), 2);
@@ -248,8 +169,6 @@ public class Gameplay {
 				count++;
 			}
 		}
-		// System.out.println("No.of moves possible "+count);
-		// printallmoves(allmoves);
 		return allmoves;
 	}
 	public LinkedList<Move> generateallmoves1(int board[][], Move m1, boolean maxplayer) {
@@ -257,9 +176,6 @@ public class Gameplay {
 		int i, j, n = board.length, count = 0;
 		boolean explored[][] = new boolean[n][n];
 		initialexplore(board, explored); // make true for all
-//		System.out.println("Hello");
-//		printboolean(explored);
-//		System.out.println("End");
 		LinkedList<fruits> currentmove;
 		for (i = 0; i < n; i++) {
 			for (j = 0; j < n; j++) {
@@ -268,8 +184,6 @@ public class Gameplay {
 				currentmove = traversal(new fruits(i, j), board, explored);
 				Move m2 = new Move();
 				m2.mymove.addAll(m1.mymove);
-				// System.out.println("\nCurrentmove is ");
-				// printqueue(currentmove);
 				m2.mymove.add(currentmove.get(0));
 				if (maxplayer)
 					m2.score = m1.score + (int) Math.pow(currentmove.size(), 2);
@@ -280,7 +194,6 @@ public class Gameplay {
 			}
 		}
 		System.out.println("No.of moves possible "+count);
-//		 printallmoves(allmoves);
 		return allmoves;
 	}
 	public void copyboard(int newboard[][]) {
@@ -303,14 +216,11 @@ public class Gameplay {
 		Maxplayer(new Move(), maxdepth, alpha, beta);
 		System.out.println(finalscore);
 		System.out.println("Iterations = " + iterations);
-//		printallmoves(finalmove);
-//		 printmove(finalmove);
 		writeinput(finalmove.getLast());
 	}
 
 	public int Maxplayer(Move m1, int depth, int alpha, int beta) {
 		iterations++;
-//		System.out.println(iterations);
 		if (depth == 0)
 			return m1.score;
 		int v = Integer.MIN_VALUE;
@@ -331,8 +241,7 @@ public class Gameplay {
 				}
 			}
 		});
-		// System.out.println("Maxplayer");
-		// printallmoves(allmoves);
+		
 		for (int i = 0; i < allmoves.size(); i++) {
 			Move m2 = allmoves.get(i);
 			int currentscore = (int) Math.max(v, Minplayer(m2, depth - 1, alpha, beta));
@@ -344,7 +253,7 @@ public class Gameplay {
 						finalmove.remove();
 					finalmove.add(allmoves.get(i));
 					finalscore = allmoves.get(i).score;
-//					printmove(finalmove);
+
 				}
 				m2.score = v;
 			}
@@ -358,11 +267,9 @@ public class Gameplay {
 
 	public int Minplayer(Move m1, int depth, int alpha, int beta) {
 		iterations++;
-//		System.out.println(iterations);
 		if (depth == 0)
 			return m1.score;
 		int v = Integer.MAX_VALUE;
-//		this.getcurrentmatrix(m1.mymove);
 		int newboard[][] = this.getcurrentmatrix(m1.mymove);
 		LinkedList<Move> allmoves = generateallmoves(newboard, m1, false);
 		if (allmoves.isEmpty())
