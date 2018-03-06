@@ -18,14 +18,7 @@ class fruits {
 }
 
 public class homework {
-
-	
-
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-//		ThreadMXBean bean = ManagementFactory.getThreadMXBean();
-//		double ini = bean.isCurrentThreadCpuTimeSupported() ? bean.getCurrentThreadCpuTime() : 0L;
-//		long startTime = System.nanoTime();
 		FileReader f = null;
 		BufferedReader b = null;
 		Gameplay n1 = new Gameplay();
@@ -53,7 +46,6 @@ public class homework {
 				}
 				i++;
 			}
-			// Gameplay.printboard(n1.board);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -69,29 +61,16 @@ public class homework {
 		}
 		int len = n1.board.length;
 		LinkedList<Move> rootmoves = n1.generateallmoves1(n1.board, new Move(), true);
-
-//	 
-//		for (int i = 1; i < 6; i++) {
-			ThreadMXBean bean = ManagementFactory.getThreadMXBean();
-			double ini = bean.isCurrentThreadCpuTimeSupported() ? bean.getCurrentThreadCpuTime() : 0L;
-			int a =n1.getdepth(rootmoves.size());
-			System.out.println("depth"+a);
-			n1.maxdepth = a;//a;
+		ThreadMXBean bean = ManagementFactory.getThreadMXBean();
+		double ini = bean.isCurrentThreadCpuTimeSupported() ? bean.getCurrentThreadCpuTime() : 0L;
+		int a =n1.getdepth(rootmoves.size());
+		System.out.println("depth"+a);
+		n1.maxdepth = a;//a;
 		n1.minimax(n1.maxdepth, Integer.MIN_VALUE, Integer.MAX_VALUE);
-//			System.out.println();
-			
-			double fin = bean.isCurrentThreadCpuTimeSupported() ? bean.getCurrentThreadCpuTime() : 0L;
-			System.out.println("time is : " + (fin - ini) / 1000000000);
+		double fin = bean.isCurrentThreadCpuTimeSupported() ? bean.getCurrentThreadCpuTime() : 0L;
+		System.out.println("time is : " + (fin - ini) / 1000000000);
 		long endTime = System.nanoTime();
-		// System.out.println("time taken = "+(endTime-startTime)/Math.pow(10, 9));
-		// double duration = (endTime-startTime)/Math.pow(10, 9);
 
-		// System.out.println(n1.iterations+"\t No. of iterations per second"+
-		// (n1.iterations/duration));
-		// n1.traversal(new fruits(1,0), n1.board);
-		// n1.starem(new fruits(1,0), n1.board);
-		// n1.rungravity(n1.board);
-		// Gameplay.printboard(n1.board);
 	}
 
 }
